@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Schedly — Profil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+
+<div class="prof-layout">
+  <!-- Back -->
+  <nav class="prof-nav">
+    <a href="/dashboard.html" class="btn-back">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Kembali ke Dashboard
+    </a>
+    <span class="nav-brand">Sched<span>ly</span></span>
+  </nav>
+
+  <div class="prof-container">
+
+    <!-- ===== HERO PROFIL ===== -->
+    <div class="prof-hero">
+      <div class="hero-avatar" id="hero-avatar">--</div>
+      <div class="hero-info">
+        <h1 class="hero-name" id="hero-name">Memuat...</h1>
+        <p class="hero-email" id="hero-email">-</p>
+        <p class="hero-since" id="hero-since">-</p>
+      </div>
+    </div>
+
+    <div class="prof-grid">
+
+      <!-- ===== STATISTIK ===== -->
+      <section class="prof-card">
+        <h2 class="card-title">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          Statistik Tugas
+        </h2>
+        <div class="stat-grid">
+          <div class="stat-box accent">
+            <div class="stat-num" id="stat-total">-</div>
+            <div class="stat-lbl">Total Tugas</div>
+          </div>
+          <div class="stat-box success">
+            <div class="stat-num" id="stat-done">-</div>
+            <div class="stat-lbl">Selesai</div>
+          </div>
+          <div class="stat-box warn">
+            <div class="stat-num" id="stat-pending">-</div>
+            <div class="stat-lbl">Pending</div>
+          </div>
+          <div class="stat-box danger">
+            <div class="stat-num" id="stat-overdue">-</div>
+            <div class="stat-lbl">Terlambat</div>
+          </div>
+        </div>
+        <!-- Progress bar selesai -->
+        <div class="progress-wrap" id="progress-wrap" style="display:none">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <span class="progress-label">Tingkat Penyelesaian</span>
+            <span class="progress-pct" id="progress-pct">0%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+        <!-- Kategori -->
+        <div class="cat-stats" id="cat-stats"></div>
+      </section>
+
+      <!-- ===== EDIT PROFIL ===== -->
+      <section class="prof-card">
+        <h2 class="card-title">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          Edit Profil
+        </h2>
+        <div class="alert alert-success" id="name-success"></div>
+        <div class="alert alert-error" id="name-error"></div>
+        <form id="name-form" novalidate>
+          <div class="form-group">
+            <label class="form-label">Nama Lengkap</label>
+            <input type="text" id="input-name" class="form-input" placeholder="Nama kamu" maxlength="100"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" id="input-email" class="form-input" disabled/>
+          </div>
+          <button type="submit" class="btn-save" id="btn-save-name">
+            <span class="btn-text">Simpan Perubahan</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- ===== GANTI PASSWORD ===== -->
+      <section class="prof-card">
+        <h2 class="card-title">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          Ganti Password
+        </h2>
+        <div class="alert alert-success" id="pass-success"></div>
+        <div class="alert alert-error" id="pass-error"></div>
+        <form id="pass-form" novalidate>
+          <div class="form-group">
+            <label class="form-label">Password Lama</label>
+            <input type="password" id="input-old-pass" class="form-input" placeholder="••••••••"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password Baru</label>
+            <input type="password" id="input-new-pass" class="form-input" placeholder="Min. 8 karakter" oninput="checkStrength(this.value)"/>
+            <div class="strength-bar">
+              <span id="s1"></span><span id="s2"></span><span id="s3"></span><span id="s4"></span>
+            </div>
+            <div class="strength-label" id="strength-label"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Konfirmasi Password Baru</label>
+            <input type="password" id="input-confirm-pass" class="form-input" placeholder="Ulangi password baru"/>
+          </div>
+          <button type="submit" class="btn-save" id="btn-save-pass">
+            <span class="btn-text">Ubah Password</span>
+          </button>
+        </form>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+// =============================================
+// API Helper
+// =============================================
+async function api(method, path, body) {
+  const opts = { method, headers: {'Content-Type':'application/json'}, credentials:'include' };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch('/api' + path, opts);
+  if (res.status === 401) { window.location.href = '/auth.html'; return; }
+  return res;
+}
+
+// =============================================
+// INIT
+// =============================================
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadProfile();
+  setupForms();
+});
+
+async function loadProfile() {
+  try {
+    const res = await api('GET', '/profile/stats');
+    if (!res || !res.ok) { window.location.href = '/auth.html'; return; }
+    const data = await res.json();
+    const { stats, categories, user } = data;
+
+    // Hero
+    const initials = user.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+    document.getElementById('hero-avatar').textContent = initials;
+    document.getElementById('hero-name').textContent = user.name;
+    document.getElementById('hero-email').textContent = user.email;
+    const joined = new Date(user.created_at).toLocaleDateString('id-ID', {year:'numeric',month:'long',day:'numeric'});
+    document.getElementById('hero-since').textContent = 'Bergabung sejak ' + joined;
+
+    // Stat boxes
+    document.getElementById('stat-total').textContent   = stats.total;
+    document.getElementById('stat-done').textContent    = stats.done;
+    document.getElementById('stat-pending').textContent = stats.pending;
+    document.getElementById('stat-overdue').textContent = stats.overdue;
+
+    // Progress bar
+    if (stats.total > 0) {
+      const pct = Math.round(stats.done / stats.total * 100);
+      document.getElementById('progress-wrap').style.display = 'block';
+      document.getElementById('progress-pct').textContent = pct + '%';
+      document.getElementById('progress-fill').style.width = pct + '%';
+    }
+
+    // Category stats
+    const catEl = document.getElementById('cat-stats');
+    catEl.innerHTML = categories.map(c => `
+      <div class="cat-row">
+        <span class="cat-dot" style="background:${c.color}"></span>
+        <span class="cat-name">${escapeHtml(c.name)}</span>
+        <span class="cat-count">${c.count} tugas</span>
+      </div>`).join('');
+
+    // Fill edit form
+    document.getElementById('input-name').value  = user.name;
+    document.getElementById('input-email').value = user.email;
+  } catch(e) {
+    console.error(e);
+    window.location.href = '/auth.html';
+  }
+}
+
+function setupForms() {
+  // Edit nama
+  document.getElementById('name-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('input-name').value.trim();
+    if (name.length < 2) { showMsg('name-error', 'Nama minimal 2 karakter'); return; }
+    clearMsg('name-success'); clearMsg('name-error');
+    const btn = document.getElementById('btn-save-name');
+    btn.disabled = true;
+    try {
+      const res = await api('PUT', '/profile/update', { name });
+      const data = await res.json();
+      if (res.ok) {
+        showMsg('name-success', data.message);
+        document.getElementById('hero-name').textContent = name;
+        const initials = name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+        document.getElementById('hero-avatar').textContent = initials;
+        toast('Nama berhasil diperbarui', 'success');
+      } else {
+        showMsg('name-error', data.message);
+      }
+    } catch(e) { showMsg('name-error', 'Gagal memperbarui nama'); }
+    btn.disabled = false;
+  });
+
+  // Ganti password
+  document.getElementById('pass-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearMsg('pass-success'); clearMsg('pass-error');
+    const oldp = document.getElementById('input-old-pass').value;
+    const newp = document.getElementById('input-new-pass').value;
+    const conf = document.getElementById('input-confirm-pass').value;
+    if (!oldp) { showMsg('pass-error', 'Password lama wajib diisi'); return; }
+    if (newp.length < 8) { showMsg('pass-error', 'Password baru minimal 8 karakter'); return; }
+    if (newp !== conf) { showMsg('pass-error', 'Konfirmasi password tidak cocok'); return; }
+    const btn = document.getElementById('btn-save-pass');
+    btn.disabled = true;
+    try {
+      const res = await api('PUT', '/profile/change-password', { current_password: oldp, new_password: newp });
+      const data = await res.json();
+      if (res.ok) {
+        showMsg('pass-success', data.message);
+        document.getElementById('pass-form').reset();
+        toast('Password berhasil diubah', 'success');
+      } else {
+        showMsg('pass-error', data.message);
+      }
+    } catch(e) { showMsg('pass-error', 'Gagal mengubah password'); }
+    btn.disabled = false;
+  });
+}
+
+function showMsg(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.classList.add('show');
+}
+function clearMsg(id) {
+  const el = document.getElementById(id);
+  el.textContent = '';
+  el.classList.remove('show');
+}
+
+function checkStrength(pass) {
+  const bars = ['s1','s2','s3','s4'].map(id => document.getElementById(id));
+  const label = document.getElementById('strength-label');
+  const colors = ['#EF4444','#F59E0B','#3B82F6','#10B981'];
+  const labels = ['', 'Lemah', 'Sedang', 'Kuat', 'Sangat Kuat'];
+  let score = 0;
+  if (pass.length >= 8) score++;
+  if (/[A-Z]/.test(pass)) score++;
+  if (/[0-9]/.test(pass)) score++;
+  if (/[^A-Za-z0-9]/.test(pass)) score++;
+  bars.forEach((b, i) => b.style.background = i < score ? colors[score-1] : '#E2E0DC');
+  label.textContent = pass ? labels[score] : '';
+  label.style.color = score > 0 ? colors[score-1] : '#6B7280';
+}
+
+function toast(msg, type = '') {
+  const c = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  c.appendChild(el);
+  setTimeout(() => el.remove(), 3200);
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+</body>
+</html>
