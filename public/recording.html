@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Schedly — Rekap Tugas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/recording.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#5C6AC4">
+</head>
+<body>
+
+<div class="rec-page">
+
+  <!-- ===== TOP NAV ===== -->
+  <nav class="rec-nav">
+    <a href="/dashboard.html" class="btn-back">
+      <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Kembali
+    </a>
+
+    <span class="rec-nav-title">Rekap Tugas</span>
+
+    <div class="rec-nav-user">
+      <div class="nav-avatar" id="nav-avatar">--</div>
+      <span class="nav-name" id="nav-name">...</span>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="rec-container">
+
+    <!-- ── Controls: Period Tabs + Date Navigator + Export ── -->
+    <div class="rec-controls">
+
+      <!-- Period Tabs: pill style, active = accent bg -->
+      <div class="period-tabs">
+        <button class="period-tab active" data-period="day">Harian</button>
+        <button class="period-tab" data-period="week">Mingguan</button>
+        <button class="period-tab" data-period="month">Bulanan</button>
+        <button class="period-tab" data-period="year">Tahunan</button>
+      </div>
+
+      <!-- Date Navigator: prev arrow + clickable date label (reset to today) + next arrow -->
+      <div class="date-nav">
+        <button class="date-nav-btn" id="btn-prev" aria-label="Periode sebelumnya">&#8592;</button>
+        <button class="date-label-btn" id="btn-today" title="Klik untuk kembali ke hari ini">
+          <span id="date-label">Memuat...</span>
+        </button>
+        <button class="date-nav-btn" id="btn-next" aria-label="Periode berikutnya">&#8594;</button>
+      </div>
+
+      <!-- Export CSV ghost button -->
+      <button class="export-btn" id="btn-export">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+        </svg>
+        Ekspor CSV
+      </button>
+    </div>
+
+    <!-- ── Stat Cards: 4-column grid, colored left border per type ── -->
+    <div class="rec-stats">
+      <div class="rec-stat-card">
+        <div class="rsc-label">Total Tugas</div>
+        <div class="rsc-value" id="stat-total">0</div>
+      </div>
+      <div class="rec-stat-card success">
+        <div class="rsc-label">Selesai</div>
+        <div class="rsc-value" id="stat-done">0</div>
+      </div>
+      <div class="rec-stat-card warn">
+        <div class="rsc-label">Pending</div>
+        <div class="rsc-value" id="stat-pending">0</div>
+      </div>
+      <div class="rec-stat-card danger">
+        <div class="rsc-label">Terlambat</div>
+        <div class="rsc-value" id="stat-overdue">0</div>
+      </div>
+    </div>
+
+    <!-- ── Completion Rate Card ── -->
+    <div class="completion-card">
+      <div class="completion-header">
+        <span class="completion-title">Tingkat Penyelesaian</span>
+        <span class="completion-pct" id="completion-pct">0%</span>
+      </div>
+      <div class="completion-bar-track">
+        <div class="completion-bar-fill" id="completion-fill" style="width:0%"></div>
+      </div>
+      <div class="completion-sub" id="completion-label">-</div>
+    </div>
+
+    <!-- ── Charts Row: Priority Breakdown + Category Breakdown ── -->
+    <div class="rec-charts-row">
+
+      <!-- Priority Breakdown -->
+      <div class="chart-card">
+        <div class="chart-card-title">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+          Berdasarkan Prioritas
+        </div>
+        <div id="priority-chart">
+          <!-- Rendered by JS: .priority-bar-row per priority level -->
+        </div>
+      </div>
+
+      <!-- Category Breakdown -->
+      <div class="chart-card">
+        <div class="chart-card-title">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+          </svg>
+          Berdasarkan Kategori
+        </div>
+        <div id="category-chart">
+          <!-- Rendered by JS: .cat-chart-row per category -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Task List ── -->
+    <div class="rec-task-section">
+      <div class="rec-task-header">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+        Daftar Tugas
+      </div>
+      <!-- Task groups rendered by JS: Selesai → Terlambat → Pending -->
+      <div id="task-list-container"></div>
+    </div>
+
+  </div><!-- /.rec-container -->
+
+  <!-- ===== LOADING OVERLAY ===== -->
+  <div class="loading-overlay" id="loading-overlay" style="display:none">
+    <div class="loading-spinner"></div>
+  </div>
+
+</div><!-- /.rec-page -->
+
+  <script src="js/pwa.js"></script>
+  <script src="js/recording.js"></script>
+</body>
+</html>

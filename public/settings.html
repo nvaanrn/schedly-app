@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedly — Pengaturan</title>
+  <meta name="description" content="Atur preferensi Schedly: bahasa, zona waktu, notifikasi, dan tampilan aplikasi.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/settings.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#5C6AC4">
+</head>
+<body>
+
+  <!-- ===== TOP NAV ===== -->
+  <nav class="settings-nav">
+    <a href="/dashboard.html" class="btn-back" id="btn-back">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      Dashboard
+    </a>
+    <span class="nav-title">Pengaturan</span>
+    <div class="nav-brand">Sched<span>ly</span></div>
+  </nav>
+
+  <!-- ===== MAIN LAYOUT ===== -->
+  <div class="settings-layout">
+
+    <!-- LEFT SIDEBAR NAV -->
+    <aside class="settings-sidebar">
+      <div class="settings-sidebar-inner">
+        <div class="settings-sidebar-title">Menu</div>
+        <button class="snav-item active" data-section="general">
+          <span class="snav-icon">🌐</span> Umum
+        </button>
+        <button class="snav-item" data-section="time">
+          <span class="snav-icon">🕐</span> Waktu &amp; Tanggal
+        </button>
+        <button class="snav-item" data-section="notifications">
+          <span class="snav-icon">🔔</span> Notifikasi
+        </button>
+        <button class="snav-item" data-section="appearance">
+          <span class="snav-icon">🎨</span> Tampilan
+        </button>
+        <button class="snav-item" data-section="account">
+          <span class="snav-icon">👤</span> Akun
+        </button>
+      </div>
+    </aside>
+
+    <!-- RIGHT PANEL -->
+    <main class="settings-main">
+
+      <!-- ─── SECTION: UMUM ─── -->
+      <section id="section-general" class="settings-section">
+        <div class="settings-page-header">
+          <div class="settings-page-title">Umum</div>
+          <div class="settings-page-sub">Konfigurasi pengaturan dasar aplikasi</div>
+        </div>
+
+        <div class="settings-card">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">🌐</span> Bahasa</div>
+            <div class="card-desc">Pilih bahasa yang digunakan di seluruh aplikasi</div>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-label">Bahasa Tampilan</div>
+              <div class="setting-hint">Bahasa yang digunakan pada antarmuka Schedly</div>
+            </div>
+            <div class="setting-control">
+              <select class="settings-select" id="sel-language">
+                <option value="id">🇮🇩 Bahasa Indonesia</option>
+                <option value="en">🇬🇧 English</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="save-row">
+            <span class="save-feedback" id="feedback-general"></span>
+            <button class="btn-save-settings" id="btn-save-general">Simpan</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── SECTION: WAKTU & TANGGAL ─── -->
+      <section id="section-time" class="settings-section">
+        <div class="settings-page-header">
+          <div class="settings-page-title">Waktu &amp; Tanggal</div>
+          <div class="settings-page-sub">Atur zona waktu dan format tampilan tanggal &amp; waktu</div>
+        </div>
+
+        <div class="settings-card">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">🌍</span> Zona Waktu</div>
+            <div class="card-desc">Digunakan untuk pengingat tugas dan tampilan waktu</div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-label">Zona Waktu</div>
+              <div class="setting-hint">Pilih zona waktu lokasi Anda</div>
+            </div>
+            <div class="setting-control">
+              <select class="settings-select" id="sel-timezone">
+                <optgroup label="Indonesia">
+                  <option value="Asia/Jakarta">WIB — Jakarta, Bandung, Surabaya (UTC+7)</option>
+                  <option value="Asia/Makassar">WITA — Makassar, Bali, Lombok (UTC+8)</option>
+                  <option value="Asia/Jayapura">WIT — Jayapura, Ambon (UTC+9)</option>
+                </optgroup>
+                <optgroup label="Asia">
+                  <option value="Asia/Singapore">Singapura (UTC+8)</option>
+                  <option value="Asia/Kuala_Lumpur">Kuala Lumpur (UTC+8)</option>
+                  <option value="Asia/Bangkok">Bangkok (UTC+7)</option>
+                  <option value="Asia/Tokyo">Tokyo (UTC+9)</option>
+                  <option value="Asia/Shanghai">Shanghai (UTC+8)</option>
+                  <option value="Asia/Kolkata">Mumbai / Delhi (UTC+5:30)</option>
+                  <option value="Asia/Dubai">Dubai (UTC+4)</option>
+                </optgroup>
+                <optgroup label="Eropa">
+                  <option value="Europe/London">London (UTC+0/+1)</option>
+                  <option value="Europe/Paris">Paris, Berlin (UTC+1/+2)</option>
+                  <option value="Europe/Moscow">Moskow (UTC+3)</option>
+                </optgroup>
+                <optgroup label="Amerika">
+                  <option value="America/New_York">New York (UTC-5/-4)</option>
+                  <option value="America/Chicago">Chicago (UTC-6/-5)</option>
+                  <option value="America/Denver">Denver (UTC-7/-6)</option>
+                  <option value="America/Los_Angeles">Los Angeles (UTC-8/-7)</option>
+                  <option value="America/Sao_Paulo">São Paulo (UTC-3)</option>
+                </optgroup>
+                <optgroup label="Australia">
+                  <option value="Australia/Sydney">Sydney (UTC+10/+11)</option>
+                  <option value="Australia/Perth">Perth (UTC+8)</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">📅</span> Format Tanggal</div>
+            <div class="card-desc">Tentukan cara tanggal ditampilkan di seluruh aplikasi</div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-label">Format Tanggal</div>
+              <div class="setting-hint">Contoh: 17 Juni 2026</div>
+            </div>
+            <div class="setting-control">
+              <div class="radio-group">
+                <label class="radio-option" data-name="date_format" data-value="DD/MM/YYYY">
+                  <input type="radio" name="date_format" value="DD/MM/YYYY" autocomplete="off">
+                  DD/MM/YYYY
+                </label>
+                <label class="radio-option" data-name="date_format" data-value="MM/DD/YYYY">
+                  <input type="radio" name="date_format" value="MM/DD/YYYY" autocomplete="off">
+                  MM/DD/YYYY
+                </label>
+                <label class="radio-option" data-name="date_format" data-value="YYYY-MM-DD">
+                  <input type="radio" name="date_format" value="YYYY-MM-DD" autocomplete="off">
+                  YYYY-MM-DD
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-label">Format Waktu</div>
+              <div class="setting-hint">Pilih format jam 12 atau 24 jam</div>
+            </div>
+            <div class="setting-control">
+              <div class="radio-group">
+                <label class="radio-option" data-name="time_format" data-value="24h">
+                  <input type="radio" name="time_format" value="24h" autocomplete="off">
+                  24 jam (14:30)
+                </label>
+                <label class="radio-option" data-name="time_format" data-value="12h">
+                  <input type="radio" name="time_format" value="12h" autocomplete="off">
+                  12 jam (2:30 PM)
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-label">Hari Pertama Minggu</div>
+              <div class="setting-hint">Digunakan pada kalender dan tampilan mingguan</div>
+            </div>
+            <div class="setting-control">
+              <div class="radio-group">
+                <label class="radio-option" data-name="first_day_week" data-value="1">
+                  <input type="radio" name="first_day_week" value="1" autocomplete="off">
+                  Senin
+                </label>
+                <label class="radio-option" data-name="first_day_week" data-value="0">
+                  <input type="radio" name="first_day_week" value="0" autocomplete="off">
+                  Minggu
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="save-row">
+            <span class="save-feedback" id="feedback-time"></span>
+            <button class="btn-save-settings" id="btn-save-time">Simpan</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── SECTION: NOTIFIKASI ─── -->
+      <section id="section-notifications" class="settings-section">
+        <div class="settings-page-header">
+          <div class="settings-page-title">Notifikasi</div>
+          <div class="settings-page-sub">Kelola bagaimana Schedly mengingatkan Anda tentang tugas</div>
+        </div>
+
+        <div class="settings-card">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">📧</span> Notifikasi Email</div>
+            <div class="card-desc">Pengingat tugas yang dikirim ke email Anda sebelum deadline</div>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-label">Pengingat Email</div>
+              <div class="setting-hint">Terima email pengingat 30 menit sebelum deadline tugas</div>
+            </div>
+            <div class="setting-control">
+              <div class="toggle-wrap">
+                <label class="toggle">
+                  <input type="checkbox" id="toggle-email-reminder" autocomplete="off">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-status" id="status-email-reminder">Aktif</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="save-row">
+            <span class="save-feedback" id="feedback-notifications"></span>
+            <button class="btn-save-settings" id="btn-save-notifications">Simpan</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── SECTION: TAMPILAN ─── -->
+      <section id="section-appearance" class="settings-section">
+        <div class="settings-page-header">
+          <div class="settings-page-title">Tampilan</div>
+          <div class="settings-page-sub">Sesuaikan tema dan tampilan visual Schedly</div>
+        </div>
+
+        <div class="settings-card">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">🎨</span> Tema</div>
+            <div class="card-desc">Pilih tampilan terang atau gelap untuk Schedly</div>
+          </div>
+
+          <div class="setting-row" style="border: none; padding: 0;">
+            <div class="setting-control" style="width: 100%;">
+              <div class="theme-options">
+                <label class="theme-option">
+                  <input type="radio" name="default_theme" value="light" autocomplete="off">
+                  <div class="theme-preview light-preview">
+                    <div class="theme-preview-inner">
+                      <div class="theme-sidebar-mock"></div>
+                      <div class="theme-main-mock">
+                        <div class="theme-bar-mock" style="width:60%"></div>
+                        <div class="theme-bar-mock" style="width:90%"></div>
+                        <div class="theme-bar-mock" style="width:75%"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="theme-label-text">Terang</span>
+                </label>
+
+                <label class="theme-option">
+                  <input type="radio" name="default_theme" value="dark" autocomplete="off">
+                  <div class="theme-preview dark-preview">
+                    <div class="theme-preview-inner">
+                      <div class="theme-sidebar-mock"></div>
+                      <div class="theme-main-mock">
+                        <div class="theme-bar-mock" style="width:60%"></div>
+                        <div class="theme-bar-mock" style="width:90%"></div>
+                        <div class="theme-bar-mock" style="width:75%"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="theme-label-text">Gelap</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="save-row">
+            <span class="save-feedback" id="feedback-appearance"></span>
+            <button class="btn-save-settings" id="btn-save-appearance">Simpan</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── SECTION: AKUN ─── -->
+      <section id="section-account" class="settings-section">
+        <div class="settings-page-header">
+          <div class="settings-page-title">Akun</div>
+          <div class="settings-page-sub">Kelola informasi dan keamanan akun Anda</div>
+        </div>
+
+        <div class="settings-card">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">👤</span> Profil</div>
+            <div class="card-desc">Informasi dasar akun Schedly Anda</div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-label">Edit Profil</div>
+              <div class="setting-hint">Ubah nama, email, foto profil, dan password</div>
+            </div>
+            <div class="setting-control">
+              <a href="/profile.html" class="btn-save-settings" style="text-decoration:none;">
+                Buka Profil →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card danger-zone">
+          <div class="card-header">
+            <div class="card-title"><span class="card-icon">🚪</span> Sesi</div>
+            <div class="card-desc">Kelola sesi login aktif Anda</div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-label">Keluar dari Akun</div>
+              <div class="setting-hint">Akhiri sesi login saat ini dan kembali ke halaman masuk</div>
+            </div>
+            <div class="setting-control">
+              <button class="btn-danger" id="btn-settings-logout">Keluar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="js/pwa.js"></script>
+  <script src="js/settings.js"></script>
+</body>
+</html>
