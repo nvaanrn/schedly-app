@@ -82,8 +82,6 @@ async function loadSettings() {
 }
 
 function populateForm(s) {
-  // Language
-  setSelectValue('sel-language', s.language || 'id');
 
   // Timezone
   setSelectValue('sel-timezone', s.timezone || 'Asia/Jakarta');
@@ -171,9 +169,7 @@ async function saveSection(section) {
 
 function collectSectionData(section) {
   const data = {};
-  if (section === 'general') {
-    data.language = document.getElementById('sel-language')?.value;
-  }
+
   if (section === 'time') {
     data.timezone = document.getElementById('sel-timezone')?.value;
     data.date_format = getSelectedRadio('date_format');
@@ -212,7 +208,7 @@ function setupNavigation() {
     el.addEventListener('click', () => switchSection(el.dataset.section));
   });
   // Activate first section
-  switchSection('general');
+  switchSection('time');
 }
 
 // ─────────────────────────────────────────────

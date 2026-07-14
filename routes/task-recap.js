@@ -64,7 +64,7 @@ function getPeriodRange(period, dateStr) {
   };
 }
 
-// GET /api/recording?period=day|week|month|year&date=YYYY-MM-DD
+// GET /api/task-recap?period=day|week|month|year&date=YYYY-MM-DD
 router.get('/', async (req, res) => {
   try {
     const uid = req.session.userId;
@@ -136,8 +136,8 @@ router.get('/', async (req, res) => {
       tasks
     });
   } catch (e) {
-    console.error('Recording error:', e);
-    res.status(500).json({ message: 'Gagal mengambil data rekaman' });
+    console.error('Task recap error:', e);
+    res.status(500).json({ message: 'Gagal mengambil data rekap tugas' });
   }
 });
 

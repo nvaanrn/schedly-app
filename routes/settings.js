@@ -6,7 +6,7 @@ const router = express.Router();
 router.use(requireAuth);
 
 // Kolom yang diizinkan diubah
-const ALLOWED_FIELDS = ['language', 'timezone', 'date_format', 'time_format', 'email_reminder', 'default_theme', 'first_day_week'];
+const ALLOWED_FIELDS = ['timezone', 'date_format', 'time_format', 'email_reminder', 'default_theme', 'first_day_week'];
 
 // GET /api/settings — Ambil pengaturan user, buat default jika belum ada
 router.get('/', async (req, res) => {

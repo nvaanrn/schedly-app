@@ -15,6 +15,9 @@ const { setupCronJobs } = require('./jobs/cron');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust proxy for secure cookies in production behind reverse proxies
+app.set('trust proxy', 1);
+
 // ================================================
 // MIDDLEWARE
 // ================================================
@@ -65,7 +68,7 @@ app.use('/api/categories', require('./routes/categories'));
 app.use('/api/profile', require('./routes/profile'));
 app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/settings', require('./routes/settings'));
-app.use('/api/recording', require('./routes/recording'));
+app.use('/api/task-recap', require('./routes/task-recap'));
 
 
 // SPA FALLBACK — arahkan semua route ke index

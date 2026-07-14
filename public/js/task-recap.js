@@ -1,18 +1,18 @@
 /* ================================================
-   SCHEDLY — Recording / Rekap Tugas JS
-   recording.js
+   SCHEDLY — Task Recap JS
+   task-recap.js
    ================================================ */
 
 // ===== STATE =====
 let currentPeriod = 'week';
 let currentDate = getLocalDateStr();
-let recData = null;
+let recapData = null;
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   applyTheme();
   await loadUser();
-  await loadRecording();
+  await loadTaskRecap();
   setupEvents();
 });
 
@@ -63,22 +63,22 @@ async function loadUser() {
 }
 
 // ===== LOAD RECORDING DATA =====
-async function loadRecording() {
+async function loadTaskRecap() {
   showLoading(true);
   try {
-    const res = await api('GET', `/recording?period=${currentPeriod}&date=${currentDate}`);
+    const res = await api('GET', `/task-recap?period=${currentPeriod}&date=${currentDate}`);
     if (!res || !res.ok) return;
-    recData = await res.json();
+    recapData = await res.json();
     renderAll();
   } catch (e) {
-    console.error('loadRecording error:', e);
+    console.error('loadTaskRecap error:', e);
   }
   showLoading(false);
 }
 
 // ===== RENDER ALL =====
 function renderAll() {
-  if (!recData) return;
+  if (!recapData) return;
   renderDateLabel();
   renderStats();
   renderCompletion();
@@ -89,7 +89,7 @@ function renderAll() {
 
 // ===== DATE LABEL =====
 function renderDateLabel() {
-  const { start, end } = recData.range; // 'YYYY-MM-DD HH:MM:SS' or 'YYYY-MM-DD'
+  const { start, end } = recapData.range; // 'YYYY-MM-DD HH:MM:SS' or 'YYYY-MM-DD'
   const startD = new Date(start);
   const endD   = new Date(end);
   // API end is typically exclusive (start of next period), so step back 1 day for inclusive display
@@ -121,7 +121,7 @@ function renderDateLabel() {
 
 // ===== STATS =====
 function renderStats() {
-  const { total, done, pending, overdue } = recData.summary;
+  const { total, done, pending, overdue } = recapData.summary;
   document.getElementById('stat-total').textContent   = total   ?? 0;
   document.getElementById('stat-done').textContent    = done    ?? 0;
   document.getElementById('stat-pending').textContent = pending ?? 0;
@@ -130,7 +130,7 @@ function renderStats() {
 
 // ===== COMPLETION BAR =====
 function renderCompletion() {
-  const { total, done } = recData.summary;
+  const { total, done } = recapData.summary;
   const pct = total > 0 ? Math.round((done / total) * 100) : 0;
 
   document.getElementById('completion-pct').textContent = pct + '%';
@@ -155,8 +155,8 @@ function renderCompletion() {
 
 // ===== PRIORITY CHART =====
 function renderPriorityChart() {
-  const { byPriority } = recData;
-  const total = recData.summary.total || 1;
+  const { byPriority } = recapData;
+  const total = recapData.summary.total || 1;
 
   const LABELS = { high: 'Tinggi', medium: 'Sedang', low: 'Rendah' };
   const COLORS = { high: '#DC2626', medium: '#D97706', low: '#059669' };
@@ -177,7 +177,7 @@ function renderPriorityChart() {
 
 // ===== CATEGORY CHART =====
 function renderCategoryChart() {
-  const { byCategory } = recData;
+  const { byCategory } = recapData;
   const container = document.getElementById('category-chart');
 
   if (!byCategory || !byCategory.length) {
@@ -196,7 +196,7 @@ function renderCategoryChart() {
 
 // ===== TASK LIST =====
 function renderTaskList() {
-  const { tasks } = recData;
+  const { tasks } = recapData;
   const now = new Date();
 
   const done    = tasks.filter(t => t.status === 'done');
@@ -303,7 +303,7 @@ function navigatePrev() {
   const m = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
   currentDate = `${y}-${m}-${day}`;
-  loadRecording();
+  loadTaskRecap();
 }
 
 function navigateNext() {
@@ -316,7 +316,7 @@ function navigateNext() {
   const m = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
   currentDate = `${y}-${m}-${day}`;
-  loadRecording();
+  loadTaskRecap();
 }
 
 function setPeriod(period) {
@@ -325,7 +325,7 @@ function setPeriod(period) {
   document.querySelectorAll('.period-tab').forEach(b => {
     b.classList.toggle('active', b.dataset.period === period);
   });
-  loadRecording();
+  loadTaskRecap();
 }
 
 // ===== SETUP EVENTS =====
@@ -338,14 +338,14 @@ function setupEvents() {
   document.getElementById('btn-next').addEventListener('click', navigateNext);
   document.getElementById('btn-today').addEventListener('click', () => {
     currentDate = getLocalDateStr();
-    loadRecording();
+    loadTaskRecap();
   });
   document.getElementById('btn-export').addEventListener('click', exportCSV);
 }
 
 // ===== EXPORT CSV =====
 function exportCSV() {
-  if (!recData || !recData.tasks || !recData.tasks.length) {
+  if (!recapData || !recapData.tasks || !recapData.tasks.length) {
     alert('Tidak ada data untuk diekspor.');
     return;
   }
@@ -353,7 +353,7 @@ function exportCSV() {
   const PRIO = { high: 'Tinggi', medium: 'Sedang', low: 'Rendah' };
   const headers = ['Judul', 'Status', 'Prioritas', 'Kategori', 'Deadline', 'Dibuat'];
 
-  const rows = recData.tasks.map(t => [
+  const rows = recapData.tasks.map(t => [
     `"${(t.title || '').replace(/"/g, '""')}"`,
     t.status === 'done' ? 'Selesai' : 'Pending',
     PRIO[t.priority] || t.priority || '-',
