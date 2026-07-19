@@ -4,11 +4,25 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Schedly — Dashboard</title>
+  <meta name="description" content="Dashboard Schedly: lihat tugas hari ini, mendatang, dan yang terlambat. Kelola jadwal produktivitasmu.">
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#5C6AC4">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1E1E2E">
+  <!-- Apple PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Schedly">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Schedly — Dashboard">
+  <meta property="og:description" content="Aplikasi manajemen tugas dan jadwal kegiatan modern.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/icons/icon-512.png">
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/dashboard.css">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#5C6AC4">
 </head>
 <body>
 
@@ -74,6 +88,11 @@
 
     <!-- Bottom -->
     <div class="sidebar-bottom">
+      <!-- Sidebar Install Button -->
+      <button class="sidebar-install-btn" id="sidebar-pwa-install" onclick="triggerInstall()" title="Install Schedly">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        Install App
+      </button>
       <div class="user-info">
         <div class="user-avatar" id="user-avatar">--</div>
         <span class="user-name" id="user-name-display">Memuat...</span>
@@ -96,6 +115,11 @@
         <button class="btn-primary" onclick="openTaskModal()">
           <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
           Tugas Baru
+        </button>
+        <!-- PWA Install Button -->
+        <button class="btn-install-pwa" id="btn-pwa-install" onclick="triggerInstall()" title="Install Schedly ke perangkat ini">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          <span class="install-label">Install</span>
         </button>
         <!-- Notification Wrap -->
         <div class="notif-wrap" id="notif-wrap">
